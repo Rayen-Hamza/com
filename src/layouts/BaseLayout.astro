@@ -39,8 +39,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
 
-    <meta name="apple-mobile-web-app-title" content="Andre Lew" />
-    <meta name="application-name" content="Andre Lew" />
+    <meta name="apple-mobile-web-app-title" content="Rayen Hamza" />
+    <meta name="application-name" content="Rayen Hamza" />
     <meta name="theme-color" content="#0a0a0a" />
 
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" sizes="180x180" />
@@ -67,6 +67,53 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
       class="container pointer-events-none fixed inset-x-0 bottom-0 h-16 w-full bg-neutral-950 to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,rgba(10,10,10,0.75),transparent)]"
     >
     </div>
-    <Globe />
+        <div id="globe-container" transition:persist style="position: fixed; top: 50vh; left: 50%; transform: translate(-50%, -50%); z-index: -10; width: 100vw; height: 100vh; opacity: 0.3; pointer-events: none;"></div>
+    
+    <script is:inline src="/p5.min.js"></script>
+    <script is:inline src="/vanta.topology.min.js"></script>
+    
+    <script is:inline>
+      (function() {
+        if (window.__vantaInitialized) return;
+        window.__vantaInitialized = true;
+        
+        let vantaEffect;
+        
+        const createEffect = () => {
+          const container = document.getElementById('globe-container');
+          if (!container || !window.VANTA) {
+            console.warn('VANTA dependencies not ready');
+            return;
+          }
+          
+          if (vantaEffect) {
+            console.log('VANTA already running, skipping');
+            return;
+          }
+          
+          vantaEffect = VANTA.TOPOLOGY({
+            el: container,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.0,
+            minWidth: 200.0,
+            scale: 1,
+            scaleMobile: 1,
+            color: 0xebf0e7,
+            backgroundColor: 0x0
+          });
+          console.log('VANTA initialized once', vantaEffect);
+        };
+        
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', createEffect);
+        } else {
+          createEffect();
+        }
+        
+        setTimeout(createEffect, 500);
+      })();
+    </script>
   </body>
 </html>

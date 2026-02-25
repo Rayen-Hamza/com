@@ -1,9 +1,5 @@
 import EmailIcon from '@/components/icons/EmailIcon.astro';
 import LinkedInIcon from '@/components/icons/LinkedInIcon.astro';
-import appleLogo from '@/images/logos/apple.jpg';
-import hackMercedLogo from '@/images/logos/hackmerced.jpg';
-import openAvenuesLogo from '@/images/logos/open-avenues.jpg';
-import ucMercedLogo from '@/images/logos/uc-merced.png';
 import cryptoTrackerCover from '@/images/projects/cryptotracker.jpg';
 import devTermsCover from '@/images/projects/devterms.jpg';
 import iconKitCover from '@/images/projects/iconkit.jpg';
@@ -13,7 +9,6 @@ import ucmCalendarCover from '@/images/projects/ucmerced-ical.jpg';
 import PuzzleIcon from '@lucide/astro/icons/puzzle';
 import RSSIcon from '@lucide/astro/icons/rss';
 import BitcoinIcon from 'simple-icons-astro/Bitcoin';
-import BlueskyIcon from 'simple-icons-astro/Bluesky';
 import DiscordIcon from 'simple-icons-astro/Discord';
 import DrizzleIcon from 'simple-icons-astro/Drizzle';
 import EthereumIcon from 'simple-icons-astro/Ethereum';
@@ -27,70 +22,46 @@ import RaycastIcon from 'simple-icons-astro/Raycast';
 import ReactIcon from 'simple-icons-astro/React';
 import TailwindCSSIcon from 'simple-icons-astro/Tailwindcss';
 import TypeScriptIcon from 'simple-icons-astro/Typescript';
-import XIcon from 'simple-icons-astro/X';
+import elyadata from '@/images/logos/elyadata_logo.png';
+import eventizer from '@/images/logos/eventizer_logo.png';
+
 
 import type { Experience, GemGroup, Project, SocialMediaProfile } from './types';
 
+
 export const socials: SocialMediaProfile[] = [
-  { icon: GitHubIcon, href: 'https://github.com/aelew' },
-  { icon: LinkedInIcon, href: 'https://www.linkedin.com/in/aelew' },
-  { icon: XIcon, href: 'https://x.com/aelew_' },
-  { icon: BlueskyIcon, href: 'https://bsky.app/profile/aelew.com' },
-  { icon: EmailIcon, href: 'mailto:me@aelew.com' }
+  { icon: GitHubIcon, href: 'https://github.com/Rayen-Hamza' },
+  { icon: LinkedInIcon, href: 'https://www.linkedin.com/in/hamza-rayen-a2a6a2251' },
+  { icon: EmailIcon, href: 'mailto:rayen.hamza@inat.ucar.tn' }
 ];
 
 export const experience: Experience[] = [
   {
-    organization: 'Apple',
-    title: 'Software Engineer Intern',
-    href: 'https://www.apple.com',
-    date: 'May 2025 – Aug 2025',
-    status: 'active',
+    organization: 'Elyadata',
+    title: 'Ai engineer intern',
+    href: 'https://www.elyadata.com',
+    date: 'juin 2025 – Aug 2025',
+    status: 'inactive',
     logo: {
       rounded: true,
-      data: appleLogo
+      data: elyadata
     },
     description: 'Info Apps (News)'
   },
   {
-    organization: 'UC Merced',
-    title: 'Student Developer, Enterprise Application Services',
+    organization: 'Eventizer',
+    title: 'Full Stack Developer Intern',
     href: 'https://www.ucmerced.edu',
     date: 'Aug 2024 – May 2025',
     status: 'inactive',
     logo: {
       rounded: false,
-      data: ucMercedLogo
+      data: eventizer 
     },
     description:
       "I was responsible for developing Next.js apps such as Merced ID and the Guest Device Registration (Wi-Fi) Portal for UC Merced's Office of Information Technology. I also helped maintain Purrfect UI, an ADA-compliant React component library built to unify styling across UC Merced's websites."
   },
-  {
-    organization: 'HackMerced',
-    title: 'Event Organizer, Engineering/Logistics',
-    href: 'https://hackmerced.com',
-    date: 'Jul 2024 – May 2025',
-    status: 'inactive',
-    logo: {
-      rounded: true,
-      data: hackMercedLogo
-    },
-    description:
-      'I helped develop the React frontend for HackMerced X, the tenth iteration of the largest hackathon in the San Joaquin Valley. I also conducted outreach to secure sponorship funding and prizes for our main event.'
-  },
-  {
-    organization: 'Open Avenues',
-    title: 'Software Engineer Intern',
-    href: 'https://www.openavenuesfoundation.org/career-pathways',
-    date: 'Feb 2024 – Apr 2024',
-    status: 'inactive',
-    logo: {
-      rounded: true,
-      data: openAvenuesLogo
-    },
-    description:
-      'Open Avenues connected me with Kirill Noskov from Koodos Labs, who served as my project lead during the duration of this micro-internship. Under his mentorship, I completed a production-level software engineering and product design project, developing intuitive user interfaces using standard product design principles and API integration best practices. I also actively participated in FigJam brainstorming sessions, attended weekly team meetings via Google Meet, and engaged in constructive developmental feedback sessions with Kirill and another intern.'
-  }
+
 ];
 
 export const projects: Project[] = [

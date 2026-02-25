@@ -3,6 +3,7 @@ import avatarImage from '@/images/avatar.png';
 import PencilLineIcon from '@lucide/astro/icons/pencil-line';
 import SparklesIcon from '@lucide/astro/icons/sparkles';
 import SquareMousePointerIcon from '@lucide/astro/icons/square-mouse-pointer';
+import folderClosedIcon from '@lucide/astro/icons/folder-closed';
 import { Image } from 'astro:assets';
 
 const links = [
@@ -10,7 +11,11 @@ const links = [
     icon: SquareMousePointerIcon,
     label: 'Home',
     path: '/'
-  },
+  },{
+    icon : folderClosedIcon,
+    label : 'Projects',
+    path : '/projects'
+},
   {
     icon: SparklesIcon,
     label: 'Gems',

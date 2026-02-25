@@ -3,23 +3,23 @@ import Badge from '@/components/Badge.astro';
 import ContentHeader from '@/components/ContentHeader.astro';
 import ExperienceAccordion from '@/components/ExperienceAccordion.astro';
 import ExternalLinkIcon from '@/components/icons/ExternalLinkIcon.astro';
-import ucSanDiegoLogo from '@/images/logos/uc-san-diego.png';
+import insat from '@/images/logos/insat_logo.jpg';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { experience, projects, socials } from '@/lib/data';
 import { Image } from 'astro:assets';
 import DiscordIcon from 'simple-icons-astro/Discord';
 ---
 
-<BaseLayout title="Andre Lew">
-  <ContentHeader title="Andre Lew" description="Student, software engineer, OSS enthusiast">
+<BaseLayout title="Rayen Hamza">
+  <ContentHeader title="Rayen Hamza" description="Student, software engineer, OSS enthusiast">
     <div class="mb-2 grid gap-2 normal-case tracking-tight text-neutral-400">
       <p>
-        I'm a 20 y/o student and aspiring software engineer studying <span
+        I'm a 22 y/o student and aspiring software engineer studying <span
           class="font-medium text-neutral-300">Computer Science</span
-        > at <a href="https://ucsd.edu" class="group ml-0.5 whitespace-nowrap" target="_blank">
+        > at <a href="https://insat.rnu.tn/" class="group ml-0.5 whitespace-nowrap" target="_blank">
           <Image
-            class="inline rounded border border-neutral-500 bg-[#182B49] object-contain p-0.5 transition-[filter] group-hover:brightness-105"
-            src={ucSanDiegoLogo}
+            class="inline rounded  object-contain p-0.5 transition-[filter] group-hover:brightness-105"
+            src={insat}
             densities={[1.5]}
             draggable="false"
             loading="eager"
@@ -28,7 +28,7 @@ import DiscordIcon from 'simple-icons-astro/Discord';
           />
           <span
             class="border-b border-dashed border-neutral-400 font-medium text-neutral-300 transition-colors group-hover:text-neutral-200"
-            >UC San Diego</span
+            >INSAT</span
           ></a
         >.
         <span class="min-[720px]:block"
