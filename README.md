@@ -1,4 +1,4 @@
-# 💻 aelew.com
+# 💻 rayenhamza.me
 
 My personal website built with [Bun](https://bun.sh), [Astro](https://astro.build), and [Tailwind CSS](https://tailwindcss.com)!
 

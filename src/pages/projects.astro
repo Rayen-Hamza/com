@@ -1,0 +1,65 @@
+---
+import Badge from '@/components/Badge.astro';
+import ContentHeader from '@/components/ContentHeader.astro';
+import ExternalLinkIcon from '@/components/icons/ExternalLinkIcon.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { projects } from '@/lib/data';
+import { Image } from 'astro:assets';
+import FolderClosedIcon from '@lucide/astro/icons/folder-closed';
+---
+
+<BaseLayout title="Projects" description="A collection of my personal projects">
+  <ContentHeader
+    title="Projects"
+    icon={FolderClosedIcon}
+    description="A collection of my personal projects"
+  />
+  <section>
+
+    <div class="grid grid-cols-1 gap-4 normal-case sm:grid-cols-2">
+      {
+        projects.map((project, i) => (
+          <div class="relative grid gap-2 rounded-lg bg-neutral-800/80 p-2 transition-opacity hover:opacity-80">
+            <Image
+              class="aspect-[40/21] w-full rounded-lg object-cover"
+              alt={`${project.name} project cover`}
+              loading={i < 4 ? 'eager' : 'lazy'}
+              src={project.cover}
+              densities={[1.5]}
+              draggable="false"
+              height={192}
+            />
+            <div class="flex flex-col gap-0.5 tracking-tight">
+              <div class="flex items-center justify-between">
+                <div class="flex gap-1.5">
+                  <h3 class="font-medium leading-4">{project.name}</h3>
+                  {project.openSource && (
+                    <Badge class="bg-white/10 px-1.5 py-1 text-[0.6rem] leading-none text-neutral-300">
+                      OSS
+                    </Badge>
+                  )}
+                </div>
+                <div class="flex items-center gap-1.5">
+                  {project.icons.map((Icon) => (
+                    <Icon class="size-4 text-neutral-400" />
+                  ))}
+                </div>
+              </div>
+              <div class="flex items-baseline justify-between">
+                <p class="text-sm/4 text-neutral-400">{project.description}</p>
+                <a
+                  class="flex items-center gap-1 text-xs text-neutral-500 after:absolute after:inset-0"
+                  href={project.link.href}
+                  target="_blank"
+                >
+                  {project.link.type}
+                  <ExternalLinkIcon class="size-3 opacity-80" />
+                </a>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
