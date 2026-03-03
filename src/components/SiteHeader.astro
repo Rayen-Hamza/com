@@ -43,7 +43,14 @@ const links = [
           width={32}
           alt=""
         />
-        <span class="text-xl font-medium tracking-tighter">Rayen</span>
+        <span class="group/name relative text-xl font-medium tracking-tighter">
+          <span class="transition-all duration-300 group-hover/name:opacity-0 group-hover/name:-translate-x-2">
+            Rayen
+          </span>
+          <span class="absolute inset-0 opacity-0 translate-x-2 transition-all duration-300 group-hover/name:opacity-100 group-hover/name:translate-x-0">
+            Hamza
+          </span>
+        </span>
       </a>
       <nav role="navigation">
         <ul class="flex flex-row gap-2 text-sm text-neutral-400">
