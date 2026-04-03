@@ -1,8 +1,9 @@
 ---
 import Badge from '@/components/Badge.astro';
-import ContentHeader from '@/components/ContentHeader.astro';
 import ExperienceAccordion from '@/components/ExperienceAccordion.astro';
 import ExternalLinkIcon from '@/components/icons/ExternalLinkIcon.astro';
+import ProfileHeader from '@/components/ProfileHeader.astro';
+import avatarImage from '@/images/avatar.png';
 import insat from '@/images/logos/insat_logo.jpg';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { experience, projects, socials } from '@/lib/data';
@@ -11,7 +12,7 @@ import DiscordIcon from 'simple-icons-astro/Discord';
 ---
 
 <BaseLayout title="Rayen Hamza">
-  <ContentHeader title="Rayen Hamza" description="Student, software engineer, OSS enthusiast">
+  <ProfileHeader name="Rayen Hamza" subtitle="Student, software engineer, OSS enthusiast" avatarImage={avatarImage}>
     <div class="mb-2 grid gap-2 normal-case tracking-tight text-neutral-400 ">
       <p>
         I'm a 22 y/o student and aspiring software engineer studying <span
@@ -23,6 +24,7 @@ import DiscordIcon from 'simple-icons-astro/Discord';
             densities={[1.5]}
             draggable="false"
             loading="eager"
+            format="webp"
             height={19}
             alt=""
           />
@@ -52,8 +54,8 @@ import DiscordIcon from 'simple-icons-astro/Discord';
         ))
       }
     </div>
-  </ContentHeader>
-  <section class="pb-12 -mt-[1px] ">
+  </ProfileHeader>
+  <section class="pb-12 pt-8">
     <h2 class="mb-2 text-xl font-medium tracking-tight">Experience</h2>
     <ul
       class="divide-y divide-dashed divide-neutral-700/70 border-t border-dashed border-neutral-700/70 normal-case"
@@ -89,6 +91,7 @@ import DiscordIcon from 'simple-icons-astro/Discord';
               src={project.cover}
               densities={[1.5]}
               draggable="false"
+              format="webp"
               height={192}
             />
             <div class="flex flex-col gap-0.5 tracking-tight">
@@ -134,29 +137,31 @@ import DiscordIcon from 'simple-icons-astro/Discord';
         class="transition-opacity hover:opacity-80"
         target="_blank"
       >
-        <Image
+        <img
           class="max-w-full"
           src="https://lanyard.cnrad.dev/api/204594797812383744?theme=dark&showDisplayName=true&hideActivity=true"
           alt="Discord user information"
-          format="svg"
-          width={320}
-          height={110}
+          width="320"
+          height="110"
+          loading="lazy"
         />
       </a>
       <p class="text-center text-sm text-neutral-400">Click above to open my profile in Discord!</p>
     </div>
   </dialog>
   <script>
-    const discordBtn = document.getElementById('discord-btn') as HTMLButtonElement;
-    const discordDialog = document.getElementById('discord-dialog') as HTMLDialogElement;
+    document.addEventListener('astro:page-load', () => {
+      const discordBtn = document.getElementById('discord-btn');
+      const discordDialog = document.getElementById('discord-dialog') as HTMLDialogElement;
+      if (!discordBtn || !discordDialog) return;
 
-    discordBtn.addEventListener('click', () => discordDialog.showModal());
-
-    discordDialog.addEventListener('click', (e) => {
-      const element = e.currentTarget as HTMLElement;
-      if (element.id !== 'discord-dialog-content') {
-        discordDialog.close();
-      }
+      discordBtn.addEventListener('click', () => discordDialog.showModal());
+      discordDialog.addEventListener('click', (e) => {
+        const element = e.currentTarget as HTMLElement;
+        if (element.id !== 'discord-dialog-content') {
+          discordDialog.close();
+        }
+      });
     });
   </script>
 </BaseLayout>

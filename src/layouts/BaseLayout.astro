@@ -2,6 +2,8 @@
 import Globe from '@/components/Globe.astro';
 import PlausibleAnalytics from '@/components/PlausibleAnalytics.astro';
 import SiteHeader from '@/components/SiteHeader.astro';
+import '@fontsource/geist-sans/400.css';
+import '@fontsource/geist-sans/500.css';
 import { ClientRouter } from 'astro:transitions';
 
 import '../styles/global.css';
@@ -11,7 +13,7 @@ interface Props {
   description?: string;
 }
 
-const title = Astro.props.title ? `${Astro.props.title} | rayenhamza.me` : 'rayenahamza.me';
+const title = Astro.props.title ? `${Astro.props.title} | rayenhamza.me` : 'rayenhamza.me';
 const description = Astro.props.description ?? 'Student, software engineer, OSS enthusiast.';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -41,7 +43,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" sizes="180x180" />
     <link rel="icon" href="/favicon-96x96.png?v=3" sizes="96x96" type="image/png" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
     <link rel="manifest" href="/site.webmanifest?v=3" />
     <link rel="shortcut icon" href="/favicon.ico?v=3" />
     <link rel="canonical" href={canonical} />
@@ -55,7 +56,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
       
       ::view-transition-old(root),
       ::view-transition-new(root) {
-        animation-duration: 1s;
+        animation-duration: 0.25s;
       }
     </style>
   </head>
@@ -80,56 +81,5 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
       style="background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 48px 48px;"
     ></div>
 
-    <!-- Vanta animation (commented out) -->
-    <!-- <div id="globe-container" transition:persist style="position: fixed; top: 50vh; left: 50%; transform: translate(-50%, -50%); z-index: -10; width: 100vw; height: 100vh; opacity: 0.3; pointer-events: none; transition: opacity 0.3s ease-in-out;"></div>
-    
-    <script is:inline src="/p5.min.js"></script>
-    <script is:inline src="/vanta.topology.min.js"></script>
-    
-    <script is:inline>
-      (function() {
-        if (window.__vantaInitialized) return;
-        window.__vantaInitialized = true;
-        
-        let vantaEffect;
-        let isTransitioning = false;
-        
-        const createEffect = () => {
-          const container = document.getElementById('globe-container');
-          if (!container || !window.VANTA) {
-            console.warn('VANTA dependencies not ready');
-            return;
-          }
-          
-          if (vantaEffect) {
-            console.log('VANTA already running, skipping');
-            return;
-          }
-          
-          vantaEffect = VANTA.TOPOLOGY({
-            el: container,
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: true,
-            minHeight: 200.0,
-            minWidth: 200.0,
-            scale: 1,
-            scaleMobile: 1,
-            color: 0x3e3e3e,
-            backgroundColor: 0x0
-          });
-          console.log('VANTA initialized once', vantaEffect);
-        };
-
-        
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', createEffect);
-        } else {
-          createEffect();
-        }
-        
-        setTimeout(createEffect, 500);
-      })();
-    </script> -->
   </body>
 </html>

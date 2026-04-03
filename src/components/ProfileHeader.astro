@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  name: string;
+  subtitle: string;
+  avatarImage: ImageMetadata;
+  coverImage?: ImageMetadata;
+}
+
+const { name, subtitle, avatarImage, coverImage } = Astro.props;
+---
+
+<section class="flex flex-col pt-6">
+  <!-- Cover Banner -->
+  <div class="relative -mx-4 h-32 overflow-hidden rounded-b-lg sm:h-44">
+    {
+      coverImage ? (
+        <Image
+          class="h-full w-full object-cover"
+          src={coverImage}
+          alt=""
+          loading="eager"
+          densities={[1.5]}
+          width={768}
+          height={176}
+        />
+      ) : (
+        <div
+          class="h-full w-full bg-gradient-to-br from-neutral-800 via-neutral-900 to-neutral-800"
+          style="background-image: radial-gradient(ellipse at 20% 50%, rgba(120,119,198,0.12), transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(255,119,198,0.06), transparent 50%);"
+        />
+      )
+    }
+  </div>
+
+  <!-- Avatar + Info -->
+  <div class="flex flex-col gap-3">
+    <div class="-mt-12 ml-2">
+      <Image
+        class="size-20 rounded-full border-4 border-neutral-950 object-cover sm:size-24 sm:border-[5px]"
+        src={avatarImage}
+        densities={[1.5]}
+        draggable="false"
+        loading="eager"
+        format="webp"
+        width={96}
+        height={96}
+        alt="Profile photo"
+      />
+    </div>
+
+    <div class="-mt-1">
+      <h1 class="text-2xl/6 font-medium tracking-tighter">{name}</h1>
+      <p class="text-neutral-500">{subtitle}</p>
+    </div>
+
+    <slot />
+  </div>
+</section>

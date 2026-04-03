@@ -1,8 +1,14 @@
+import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: process.env.NODE_ENV === 'production' ? 'https://aelew.com' : 'http://localhost:4321',
+  site: 'https://rayenhamza.me',
+  output: 'static',
+  compressHTML: true,
+  prefetch: {
+    defaultStrategy: 'hover'
+  },
   image: {
     remotePatterns: [
       {
@@ -11,5 +17,5 @@ export default defineConfig({
       }
     ]
   },
-  integrations: [tailwind()]
+  integrations: [tailwind(), sitemap()]
 });
