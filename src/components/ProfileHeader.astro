@@ -33,16 +33,16 @@ const { name, subtitle, avatarImage, coverImage } = Astro.props;
 
   <!-- Avatar + Info -->
   <div class="flex flex-col gap-3">
-    <div class="-mt-12 ml-2">
+    <div class="relative z-10 -mt-12 ml-2">
       <Image
         class="size-20 rounded-full border-4 border-neutral-950 object-cover sm:size-24 sm:border-[5px]"
         src={avatarImage}
-        densities={[1.5]}
         draggable="false"
         loading="eager"
         format="webp"
-        width={96}
-        height={96}
+        quality={90}
+        width={384}
+        height={384}
         alt="Profile photo"
       />
     </div>

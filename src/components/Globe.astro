@@ -1,45 +1,46 @@
 <canvas
-  class="pointer-events-none fixed -left-1/4 -top-16 -z-10 size-[1500px] opacity-10"
+  class="pointer-events-none fixed -left-1/4 -top-16 -z-10 size-[1500px] opacity-0 transition-opacity duration-1000"
   height="1500"
   width="1500"
-  id="globe"></canvas>
+  id="globe"
+  transition:persist
+  transition:animate="none"></canvas>
 
 <script>
   import createGlobe from 'cobe';
 
-  let activeCanvas: HTMLCanvasElement;
-  let currPhi = 0;
+  const w = window as any;
 
-  document.addEventListener('astro:page-load', () => {
+  if (!w.__globeInit) {
+    w.__globeInit = true;
+    w.__globePhi = w.__globePhi ?? 0;
+
     const canvas = document.getElementById('globe') as HTMLCanvasElement;
-    activeCanvas = canvas;
+    if (canvas) {
+      createGlobe(canvas, {
+        devicePixelRatio: 1,
+        width: 1500,
+        height: 1500,
+        phi: 0,
+        theta: 0,
+        diffuse: 1.2,
+        dark: 1,
+        scale: 1,
+        mapSamples: 10000,
+        mapBrightness: 6,
+        markers: [],
+        offset: [0, 0],
+        baseColor: [1, 1, 1],
+        glowColor: [1, 1, 1],
+        markerColor: [0.1, 0.8, 1],
+        onRender: (state) => {
+          state.phi = w.__globePhi;
+          w.__globePhi += 0.001;
+        }
+      });
 
-    createGlobe(canvas, {
-      devicePixelRatio: 1,
-      width: 1500,
-      height: 1500,
-      phi: 0,
-      theta: 0,
-      diffuse: 1.2,
-      dark: 1,
-      scale: 1,
-      mapSamples: 16000,
-      mapBrightness: 6,
-      markers: [],
-      offset: [0, 0],
-      baseColor: [1, 1, 1],
-      glowColor: [1, 1, 1],
-      markerColor: [0.1, 0.8, 1],
-      onRender: (state) => {
-        if (activeCanvas !== canvas) return;
-        state.phi = currPhi;
-        currPhi += 0.001;
-      }
-    });
-  });
-
-  window.addEventListener('load', () => {
-    const canvas = document.getElementById('globe') as HTMLCanvasElement;
-    canvas.classList.add('duration-1000', 'animate-in', 'fade-in-0');
-  });
+      // Fade in once via inline style — no replayable CSS animation
+      requestAnimationFrame(() => canvas.style.opacity = '0.1');
+    }
+  }
 </script>
