@@ -1,0 +1,154 @@
+<div class="w-48 h-48 md:w-52 md:h-52 overflow-hidden cursor-grab active:cursor-grabbing">
+  <canvas
+    class="opacity-0 transition-opacity duration-1000 block w-full h-full"
+    id="torus-knot"
+  ></canvas>
+</div>
+
+<script>
+  import {
+    WebGLRenderer,
+    Scene,
+    PerspectiveCamera,
+    TorusKnotGeometry,
+    MeshPhysicalMaterial,
+    Mesh,
+    PMREMGenerator,
+    ACESFilmicToneMapping,
+    AmbientLight,
+    DirectionalLight,
+    CanvasTexture,
+    EquirectangularReflectionMapping,
+    SRGBColorSpace,
+  } from 'three';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+  function initTorusKnot() {
+    const canvas = document.getElementById('torus-knot') as HTMLCanvasElement;
+    if (!canvas || canvas.dataset.initialized) return;
+    canvas.dataset.initialized = 'true';
+
+    const renderer = new WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+    });
+
+    const rect = canvas.getBoundingClientRect();
+    renderer.setSize(rect.width, rect.height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.28;
+
+    const scene = new Scene();
+    const camera = new PerspectiveCamera(45, rect.width / rect.height, 0.1, 100);
+    camera.position.z = 5;
+
+    // Keep direct lights subtle and let environment stripes shape the chrome.
+    const ambient = new AmbientLight(0xffffff, 0.2);
+    const keyLight = new DirectionalLight(0xffffff, 1.1);
+    keyLight.position.set(3, 2, 5);
+    const fillLight = new DirectionalLight(0xf3f8ff, 0.5);
+    fillLight.position.set(-4, -1, 3);
+    scene.add(ambient, keyLight, fillLight);
+
+    // Build a smooth studio-strip environment to avoid blocky room reflections.
+    const pmrem = new PMREMGenerator(renderer);
+    const envCanvas = document.createElement('canvas');
+    envCanvas.width = 1024;
+    envCanvas.height = 512;
+    const envCtx = envCanvas.getContext('2d');
+    if (envCtx) {
+      const bgGrad = envCtx.createLinearGradient(0, 0, 0, envCanvas.height);
+      bgGrad.addColorStop(0, '#101318');
+      bgGrad.addColorStop(0.5, '#07090d');
+      bgGrad.addColorStop(1, '#04060a');
+      envCtx.fillStyle = bgGrad;
+      envCtx.fillRect(0, 0, envCanvas.width, envCanvas.height);
+
+      const addStripe = (
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        alpha: number,
+        color: string,
+      ) => {
+        const grad = envCtx.createLinearGradient(x, y, x + w, y);
+        grad.addColorStop(0, `rgba(${color},0)`);
+        grad.addColorStop(0.5, `rgba(${color},${alpha})`);
+        grad.addColorStop(1, `rgba(${color},0)`);
+        envCtx.fillStyle = grad;
+        envCtx.fillRect(x, y, w, h);
+      };
+
+      addStripe(120, 90, 780, 30, 1, '255,255,255');
+      addStripe(70, 210, 860, 22, 0.86, '242,247,255');
+      addStripe(170, 330, 700, 24, 0.72, '228,236,250');
+    }
+
+    const envTexture = new CanvasTexture(envCanvas);
+    envTexture.mapping = EquirectangularReflectionMapping;
+    envTexture.colorSpace = SRGBColorSpace;
+    const envRenderTarget = pmrem.fromEquirectangular(envTexture);
+    scene.environment = envRenderTarget.texture;
+    envTexture.dispose();
+    pmrem.dispose();
+
+    const geometry = new TorusKnotGeometry(1, 0.31, 512, 160, 2, 3);
+    const material = new MeshPhysicalMaterial({
+      color: 0xe4e9f0,
+      metalness: 1,
+      roughness: 0.018,
+      clearcoat: 1,
+      clearcoatRoughness: 0.004,
+      reflectivity: 1,
+      envMapIntensity: 3.5,
+      specularIntensity: 1,
+    });
+    const mesh = new Mesh(geometry, material);
+    mesh.position.y = 0.2;
+    scene.add(mesh);
+
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1.5;
+
+    function resize() {
+      const r = canvas.getBoundingClientRect();
+      renderer.setSize(r.width, r.height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      camera.aspect = r.width / r.height;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize);
+
+    let frameId: number;
+    function animate() {
+      frameId = requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    requestAnimationFrame(() => (canvas.style.opacity = '1'));
+
+    document.addEventListener(
+      'astro:before-swap',
+      () => {
+        cancelAnimationFrame(frameId);
+        window.removeEventListener('resize', resize);
+        renderer.dispose();
+        envRenderTarget.dispose();
+        geometry.dispose();
+        material.dispose();
+      },
+      { once: true },
+    );
+  }
+
+  document.addEventListener('astro:page-load', initTorusKnot);
+</script>

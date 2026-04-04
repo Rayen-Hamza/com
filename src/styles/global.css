@@ -20,3 +20,14 @@ button {
   background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+/* Avatar subtle pulse ring */
+@keyframes avatar-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.06); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.avatar-ring {
+  animation: avatar-pulse 4s ease-out infinite;
+}
