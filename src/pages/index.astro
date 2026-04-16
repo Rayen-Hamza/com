@@ -4,6 +4,7 @@ import ExperienceAccordion from '@/components/ExperienceAccordion.astro';
 import ExternalLinkIcon from '@/components/icons/ExternalLinkIcon.astro';
 import ProfileHeader from '@/components/ProfileHeader.astro';
 import avatarImage from '@/images/me.jpg';
+import picofme from '@/images/picofme.png';
 import insat from '@/images/logos/insat_logo.jpg';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { experience, projects, socials } from '@/lib/data';
@@ -12,7 +13,7 @@ import DiscordIcon from 'simple-icons-astro/Discord';
 ---
 
 <BaseLayout title="Rayen Hamza">
-  <ProfileHeader name="Rayen Hamza" subtitle="Student, software engineer, OSS enthusiast" avatarImage={avatarImage}>
+  <ProfileHeader name="Rayen Hamza" subtitle="Student, software engineer, OSS enthusiast" avatarImage={picofme}>
     <div class="mb-2 grid gap-2 normal-case tracking-tight text-neutral-400 ">
       <p>
         I'm a 22 y/o student and aspiring software engineer studying <span

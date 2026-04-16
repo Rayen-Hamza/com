@@ -66,7 +66,7 @@ export const experience: Experience[] = [
 
 export const projects: Project[] = [
   {
-    name: 'DevTerms',
+    name: 'Teleco HIRAG',
     description: 'Crowdsourced dictionary for developers',
     openSource: true,
     cover: devTermsCover,
@@ -74,7 +74,7 @@ export const projects: Project[] = [
     icons: [DrizzleIcon, MeilisearchIcon, TailwindCSSIcon, ReactIcon, NextIcon, TypeScriptIcon]
   },
   {
-    name: 'Cobalt for Raycast',
+    name: 'GraphForge',
     description: 'Raycast extension for downloading media',
     openSource: true,
     cover: raycastCobaltCover,
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     icons: [ReactIcon, RaycastIcon, TypeScriptIcon]
   },
   {
-    name: 'IconKit',
+    name: 'Klippy',
     description: 'AI icon generator + REST API',
     openSource: false,
     cover: iconKitCover,
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     icons: [DrizzleIcon, TailwindCSSIcon, ReactIcon, OpenAIIcon, NextIcon, TypeScriptIcon]
   },
   {
-    name: 'CryptoTracker',
+    name: 'CodeDuel',
     description: 'Crypto confirmation tracker for Discord',
     openSource: true,
     cover: cryptoTrackerCover,
@@ -98,7 +98,7 @@ export const projects: Project[] = [
     icons: [DiscordIcon, PythonIcon, BitcoinIcon, LitecoinIcon, EthereumIcon]
   },
   {
-    name: 'lookup.tools',
+    name: 'SIEMZello',
     description: 'Domain, IP, & email OSINT tool',
     openSource: true,
     cover: lookupToolsCover,
@@ -106,7 +106,7 @@ export const projects: Project[] = [
     icons: [TailwindCSSIcon, ReactIcon, NextIcon, TypeScriptIcon]
   },
   {
-    name: 'UC Merced iCalendar Tool',
+    name: 'MyINSAT Events',
     description: '.ics generator for UC Merced courses',
     openSource: true,
     cover: ucmCalendarCover,

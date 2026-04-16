@@ -67,7 +67,61 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <div class="bg-dots pointer-events-none fixed inset-0 z-0" transition:persist transition:animate="none"></div>
 
     <SiteHeader />
-    <main class="container relative z-10 pt-16" transition:animate="fade">
+    <main class="container relative z-10 mt-12 overflow-hidden rounded-3xl border border-neutral-700/40 pb-6" transition:animate="fade">
+      <!-- Marching ants border -->
+      <!-- <svg class="pointer-events-none absolute inset-0 z-10 h-full w-full" aria-hidden="true">
+        <rect
+          class="marching-ants"
+          x="1" y="1"
+          width="calc(100% - 2px)" height="calc(100% - 2px)"
+          rx="23"
+          fill="none"
+          stroke="rgba(82,82,82,0.7)"
+          stroke-width="1.5"
+        />
+      </svg> -->
+      <!-- Breath pulse border -->
+      <!-- <svg class="pointer-events-none absolute inset-0 z-10 h-full w-full" aria-hidden="true">
+        <rect
+          class="breath-pulse"
+          x="1" y="1"
+          width="calc(100% - 2px)" height="calc(100% - 2px)"
+          rx="23"
+          fill="none"
+          stroke-width="1.5"
+        />
+      </svg> -->
+      <!-- Radar sweep border -->
+      <!-- <svg class="pointer-events-none absolute inset-0 z-10 h-full w-full" style="overflow: visible;" aria-hidden="true">
+        <rect
+          class="radar-track"
+          x="1" y="1"
+          width="calc(100% - 2px)" height="calc(100% - 2px)"
+          rx="23"
+          fill="none"
+          stroke-width="1.5"
+        />
+        <defs>
+          <mask id="dash-mask">
+            <rect
+              class="radar-mask"
+              x="1" y="1"
+              width="calc(100% - 2px)" height="calc(100% - 2px)"
+              rx="23"
+              fill="none"
+              stroke="white"
+              stroke-width="2"
+            />
+          </mask>
+        </defs>
+        <foreignObject width="200%" height="200%" x="-50%" y="-50%" mask="url(#dash-mask)">
+          <div class="radar-sweep"></div>
+        </foreignObject>
+      </svg> -->
+      <!-- Star border (traveling light dot) -->
+      <div class="star-border pointer-events-none absolute inset-0 z-10 rounded-3xl">
+        <div class="star-border-spinner"></div>
+      </div>
       <slot />
     </main>
     <footer class="relative z-10 py-8 text-center text-xs tracking-tighter text-neutral-400">

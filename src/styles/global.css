@@ -21,6 +21,91 @@ button {
   background-size: 24px 24px;
 }
 
+/* Marching ants border */
+/* .marching-ants {
+  stroke-dasharray: 8 8;
+  animation: march 30s linear infinite;
+}
+@keyframes march {
+  to { stroke-dashoffset: -320px; }
+} */
+
+/* Breath pulse border */
+/* .breath-pulse {
+  stroke-dasharray: 8 8;
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { stroke: rgba(82, 82, 82, 0.4); }
+  50% { stroke: rgba(163, 163, 163, 0.9); }
+} */
+
+/* Radar sweep border */
+/* .radar-track {
+  stroke-dasharray: 8 8;
+  stroke: rgba(64, 64, 64, 0.3);
+}
+.radar-mask {
+  stroke-dasharray: 8 8;
+}
+.radar-sweep {
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(60, 60, 60, 0.15) 0%,
+    rgba(80, 80, 80, 0.2) 30%,
+    rgba(100, 100, 100, 0.3) 55%,
+    rgba(130, 130, 130, 0.5) 75%,
+    rgba(160, 160, 160, 0.8) 92%,
+    rgba(60, 60, 60, 0.15) 100%
+  );
+  animation: spin 5s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+} */
+
+/* Star border (traveling light dot) */
+.star-border {
+  padding: 2px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  overflow: hidden;
+}
+.star-border-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 3000px;
+  height: 3000px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(180, 180, 190, 0.25) 0%,
+    rgba(220, 220, 230, 0.55) 8%,
+    rgba(140, 140, 155, 0.15) 16%,
+    rgba(200, 200, 215, 0.5) 24%,
+    rgba(160, 160, 170, 0.12) 32%,
+    rgba(240, 240, 245, 0.65) 40%,
+    rgba(130, 130, 145, 0.15) 48%,
+    rgba(210, 210, 220, 0.55) 56%,
+    rgba(150, 150, 165, 0.12) 64%,
+    rgba(230, 230, 240, 0.6) 72%,
+    rgba(140, 140, 155, 0.15) 80%,
+    rgba(220, 220, 230, 0.55) 88%,
+    rgba(160, 160, 170, 0.2) 94%,
+    rgba(180, 180, 190, 0.25) 100%
+  );
+  filter: blur(3px);
+  animation: star-spin 12s linear infinite;
+}
+@keyframes star-spin {
+  to { transform: rotate(360deg); }
+}
+
 /* Avatar subtle pulse ring */
 @keyframes avatar-pulse {
   0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.06); }
