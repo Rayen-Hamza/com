@@ -1,0 +1,189 @@
+---
+import { socialLifeImages } from '@/lib/data';
+import { Image } from 'astro:assets';
+---
+
+<section class="pb-12 pt-8">
+  <h2 class="mb-4 text-xl font-medium tracking-tight">Gallery</h2>
+  <div id="sl-container" class="relative overflow-hidden rounded-lg py-3">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-y-0 left-0 z-10 w-[clamp(24px,10%,80px)] bg-gradient-to-r from-neutral-950 to-transparent"
+    ></div>
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-y-0 right-0 z-10 w-[clamp(24px,10%,80px)] bg-gradient-to-l from-neutral-950 to-transparent"
+    ></div>
+
+    <div id="sl-track" class="flex w-max select-none will-change-transform">
+      <ul id="sl-seq" class="flex items-center gap-8" role="list">
+        {socialLifeImages.map((img, i) => (
+          <li class="sl-card flex-none overflow-hidden rounded-lg" role="listitem">
+            <Image
+              class="aspect-[40/21] w-[300px] rounded-lg object-cover sm:w-[350px]"
+              alt={`Social life photo ${i + 1}`}
+              loading="lazy"
+              src={img}
+              densities={[1.5, 2]}
+              draggable="false"
+              format="webp"
+              height={192}
+              quality={85}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  const SMOOTH_TAU = 0.25;
+  const SPEED = 50;
+  const MIN_COPIES = 2;
+  const COPY_HEADROOM = 2;
+
+  document.addEventListener('astro:page-load', () => {
+    const container = document.getElementById('sl-container');
+    const track = document.getElementById('sl-track');
+    const seq = document.getElementById('sl-seq');
+    if (!container || !track || !seq) return;
+
+    let seqWidth = 0;
+    let offset = 0;
+    let velocity = 0;
+    let lastTs: number | null = null;
+    let isHovered = false;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartOffset = 0;
+    let rafId: number | null = null;
+
+    const measureAndClone = () => {
+      const rect = seq.getBoundingClientRect();
+      seqWidth = Math.ceil(rect.width);
+      if (seqWidth <= 0) return;
+
+      const containerWidth = container.clientWidth;
+      const copies = Math.max(MIN_COPIES, Math.ceil(containerWidth / seqWidth) + COPY_HEADROOM);
+
+      const existing = track.querySelectorAll('ul');
+      const current = existing.length;
+
+      if (current < copies) {
+        for (let i = current; i < copies; i++) {
+          const clone = seq.cloneNode(true) as HTMLElement;
+          clone.removeAttribute('id');
+          clone.setAttribute('aria-hidden', 'true');
+          track.appendChild(clone);
+        }
+      } else if (current > copies) {
+        for (let i = current - 1; i >= copies; i--) {
+          existing[i].remove();
+        }
+      }
+    };
+
+    const updateScale = () => {
+      const rect = container.getBoundingClientRect();
+      const center = rect.left + rect.width / 2;
+      const half = rect.width / 2;
+      const cards = track.querySelectorAll('.sl-card');
+
+      cards.forEach((card) => {
+        const el = card as HTMLElement;
+        const cr = el.getBoundingClientRect();
+        const cardCenter = cr.left + cr.width / 2;
+        const dist = Math.abs(center - cardCenter);
+        const s = 1 + 0.12 * Math.max(0, 1 - dist / half);
+        el.style.transform = `scale(${s})`;
+      });
+    };
+
+    const prefersReduced =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const animate = (ts: number) => {
+      if (lastTs === null) lastTs = ts;
+      const dt = Math.max(0, ts - lastTs) / 1000;
+      lastTs = ts;
+
+      if (!prefersReduced && seqWidth > 0) {
+        if (!isDragging) {
+          const target = isHovered ? 0 : SPEED;
+          const ease = 1 - Math.exp(-dt / SMOOTH_TAU);
+          velocity += (target - velocity) * ease;
+          offset += velocity * dt;
+        }
+        offset = ((offset % seqWidth) + seqWidth) % seqWidth;
+        track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      }
+
+      updateScale();
+      rafId = requestAnimationFrame(animate);
+    };
+
+    const init = () => {
+      measureAndClone();
+      if (rafId === null) {
+        rafId = requestAnimationFrame(animate);
+      }
+    };
+
+    const ro = new ResizeObserver(init);
+    ro.observe(container);
+    ro.observe(seq);
+
+    const images = seq.querySelectorAll('img');
+    let remaining = images.length;
+    if (remaining === 0) {
+      init();
+    } else {
+      const onLoad = () => {
+        remaining--;
+        if (remaining <= 0) init();
+      };
+      images.forEach((img) => {
+        if ((img as HTMLImageElement).complete) {
+          onLoad();
+        } else {
+          img.addEventListener('load', onLoad, { once: true });
+          img.addEventListener('error', onLoad, { once: true });
+        }
+      });
+    }
+
+    track.addEventListener('mouseenter', () => { isHovered = true; });
+    track.addEventListener('mouseleave', () => { isHovered = false; isDragging = false; });
+
+    const onDragStart = (x: number) => {
+      isDragging = true;
+      dragStartX = x;
+      dragStartOffset = offset;
+      velocity = 0;
+      track.style.cursor = 'grabbing';
+    };
+    const onDragMove = (x: number) => {
+      if (!isDragging) return;
+      offset = dragStartOffset - (x - dragStartX);
+    };
+    const onDragEnd = () => {
+      isDragging = false;
+      track.style.cursor = '';
+    };
+
+    track.style.cursor = 'grab';
+    track.addEventListener('mousedown', (e) => { e.preventDefault(); onDragStart(e.clientX); });
+    window.addEventListener('mousemove', (e) => onDragMove(e.clientX));
+    window.addEventListener('mouseup', onDragEnd);
+
+    track.addEventListener('touchstart', (e) => onDragStart(e.touches[0].clientX), { passive: true });
+    track.addEventListener('touchmove', (e) => onDragMove(e.touches[0].clientX), { passive: true });
+    track.addEventListener('touchend', onDragEnd);
+
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      ro.disconnect();
+    };
+  });
+</script>

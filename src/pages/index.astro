@@ -6,6 +6,7 @@ import ProfileHeader from '@/components/ProfileHeader.astro';
 import avatarImage from '@/images/me.jpg';
 import picofme from '@/images/picofme.png';
 import insat from '@/images/logos/insat_logo.jpg';
+import SocialLifeCarousel from '@/components/SocialLifeCarousel.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { experience, projects, socials } from '@/lib/data';
 import { Image } from 'astro:assets';
@@ -44,9 +45,7 @@ import DiscordIcon from 'simple-icons-astro/Discord';
       </p>
     </div>
     <div class="flex gap-4">
-      <button id="discord-btn" type="button">
-        <DiscordIcon class="size-5 transition-opacity hover:opacity-75" />
-      </button>
+
       {
         socials.map((social) => (
           <a href={social.href} target="_blank">
@@ -69,10 +68,9 @@ import DiscordIcon from 'simple-icons-astro/Discord';
       <h2 class="text-xl font-medium tracking-tight">Projects</h2>
       <a
         class="group text-sm normal-case text-neutral-400 transition-colors hover:text-neutral-300"
-        href="https://github.com/Rayen-Hamza?tab=repositories&type=source"
-        target="_blank"
+        href="/projects"
       >
-        View more on GitHub
+        View all projects
         <span
           class="inline-block translate-x-0 transition-transform duration-200 ease-in-out group-hover:translate-x-0.5"
           aria-hidden="true"
@@ -83,7 +81,7 @@ import DiscordIcon from 'simple-icons-astro/Discord';
     </div>
     <div class="grid grid-cols-1 gap-4 normal-case sm:grid-cols-2">
       {
-        projects.map((project, i) => (
+        projects.slice(0, 4).map((project, i) => (
           <div class="relative grid gap-2 rounded-lg bg-neutral-800/80 p-2 transition-opacity hover:opacity-80">
             <Image
               class="aspect-[40/21] w-full rounded-lg object-cover"
@@ -128,6 +126,7 @@ import DiscordIcon from 'simple-icons-astro/Discord';
       }
     </div>
   </section>
+  <SocialLifeCarousel />
   <dialog
     id="discord-dialog"
     class="bg-transparent duration-200 animate-in fade-in backdrop:backdrop-blur-sm backdrop:duration-200 backdrop:animate-in backdrop:fade-in"

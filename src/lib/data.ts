@@ -26,6 +26,13 @@ import elyadata from '@/images/logos/elyadata_logo.png';
 import eventizer from '@/images/logos/eventizer_logo.png';
 
 
+import socialLife1 from '@/images/social-life/placeholder-1.jpg';
+import socialLife2 from '@/images/social-life/placeholder-2.jpg';
+import socialLife3 from '@/images/social-life/placeholder-3.jpg';
+import socialLife4 from '@/images/social-life/placeholder-4.jpg';
+import socialLife5 from '@/images/social-life/placeholder-5.jpg';
+import socialLife6 from '@/images/social-life/placeholder-6.jpg';
+
 import type { Experience, GemGroup, Project, SocialMediaProfile } from './types';
 
 
@@ -67,7 +74,7 @@ export const experience: Experience[] = [
 export const projects: Project[] = [
   {
     name: 'Teleco HIRAG',
-    description: 'Crowdsourced dictionary for developers',
+    description: 'Hirearchical RAG Framework for 3GPP standards',
     openSource: true,
     cover: devTermsCover,
     link: { type: 'Website', href: 'https://devterms.io' },
@@ -75,7 +82,7 @@ export const projects: Project[] = [
   },
   {
     name: 'GraphForge',
-    description: 'Raycast extension for downloading media',
+    description: 'Agentic Knowledge Graph Construction and Querying Platform',
     openSource: true,
     cover: raycastCobaltCover,
     link: { type: 'Raycast', href: 'https://www.raycast.com/aelew/cobalt' },
@@ -83,7 +90,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Klippy',
-    description: 'AI icon generator + REST API',
+    description: 'MultiModel RAG local assistant ',
     openSource: false,
     cover: iconKitCover,
     link: { type: 'Website', href: 'https://iconkit.ai' },
@@ -99,7 +106,7 @@ export const projects: Project[] = [
   },
   {
     name: 'SIEMZello',
-    description: 'Domain, IP, & email OSINT tool',
+    description: 'ML powered SIEM platform',
     openSource: true,
     cover: lookupToolsCover,
     link: { type: 'Website', href: 'https://lookup.tools' },
@@ -107,12 +114,21 @@ export const projects: Project[] = [
   },
   {
     name: 'MyINSAT Events',
-    description: '.ics generator for UC Merced courses',
+    description: 'Event and Club management platform for INSAT',
     openSource: true,
     cover: ucmCalendarCover,
     link: { type: 'Website', href: 'https://cal.aelew.com' },
     icons: [TailwindCSSIcon, ReactIcon, NextIcon, TypeScriptIcon]
   }
+];
+
+export const socialLifeImages: ImageMetadata[] = [
+  socialLife1,
+  socialLife2,
+  socialLife3,
+  socialLife4,
+  socialLife5,
+  socialLife6
 ];
 
 export const gems: GemGroup[] = [

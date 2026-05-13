@@ -116,3 +116,8 @@ button {
 .avatar-ring {
   animation: avatar-pulse 4s ease-out infinite;
 }
+
+/* Social life carousel cards */
+.sl-card {
+  transition: transform 0.1s ease-out;
+}
