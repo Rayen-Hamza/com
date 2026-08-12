@@ -26,14 +26,13 @@ import elyadata from '@/images/logos/elyadata_logo.png';
 import eventizer from '@/images/logos/eventizer_logo.png';
 
 
-import socialLife1 from '@/images/social-life/placeholder-1.jpg';
-import socialLife2 from '@/images/social-life/placeholder-2.jpg';
-import socialLife3 from '@/images/social-life/placeholder-3.jpg';
-import socialLife4 from '@/images/social-life/placeholder-4.jpg';
-import socialLife5 from '@/images/social-life/placeholder-5.jpg';
-import socialLife6 from '@/images/social-life/placeholder-6.jpg';
+import cybersphereCtf from '@/images/social-life/cybersphere-ctf.jpg';
+import darkestHoursCtf from '@/images/social-life/darkest-hours-ctf.jpg';
+import dataquest from '@/images/social-life/dataquest.jpeg';
+import nrwHackathon from '@/images/social-life/nrw-hackathon.jpg';
+import smuHackathon from '@/images/social-life/smu-hackathon.jpg';
 
-import type { Experience, GemGroup, Project, SocialMediaProfile } from './types';
+import type { Experience, GalleryImage, GemGroup, Project, SocialMediaProfile } from './types';
 
 
 export const socials: SocialMediaProfile[] = [
@@ -122,13 +121,12 @@ export const projects: Project[] = [
   }
 ];
 
-export const socialLifeImages: ImageMetadata[] = [
-  socialLife1,
-  socialLife2,
-  socialLife3,
-  socialLife4,
-  socialLife5,
-  socialLife6
+export const socialLifeImages: GalleryImage[] = [
+  { src: nrwHackathon, alt: 'NRW Hackathon team photo', caption: 'NRW Hackathon' },
+  { src: cybersphereCtf, alt: 'Cybersphere CTF event', caption: 'Cybersphere CTF' },
+  { src: darkestHoursCtf, alt: 'Darkest Hours CTF competition', caption: 'Darkest Hours CTF' },
+  { src: dataquest, alt: 'DataQuest data science competition', caption: 'DataQuest' },
+  { src: smuHackathon, alt: 'SMU Hackathon event', caption: 'SMU Hackathon' },
 ];
 
 export const gems: GemGroup[] = [

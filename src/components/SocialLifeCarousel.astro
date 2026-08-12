@@ -16,19 +16,19 @@ import { Image } from 'astro:assets';
     ></div>
 
     <div id="sl-track" class="flex w-max select-none will-change-transform">
-      <ul id="sl-seq" class="flex items-center gap-8" role="list">
+      <ul id="sl-seq" class="flex items-center gap-14" role="list">
         {socialLifeImages.map((img, i) => (
           <li class="sl-card flex-none overflow-hidden rounded-lg" role="listitem">
             <Image
-              class="aspect-[40/21] w-[300px] rounded-lg object-cover sm:w-[350px]"
+              class="block h-[200px] w-auto rounded-lg object-cover sm:h-[240px]"
               alt={`Social life photo ${i + 1}`}
               loading="lazy"
               src={img}
               densities={[1.5, 2]}
               draggable="false"
               format="webp"
-              height={192}
-              quality={85}
+              height={240}
+              quality={90}
             />
           </li>
         ))}

@@ -28,6 +28,12 @@ interface Gem {
   href: string;
 }
 
+interface GalleryImage {
+  src: ImageMetadata;
+  alt: string;
+  caption?: string;
+}
+
 interface GemGroup {
   icon: any;
   title: string;
@@ -35,4 +41,4 @@ interface GemGroup {
   items: Gem[];
 }
 
-export type { Experience, GemGroup, Project, SocialMediaProfile };
+export type { Experience, GalleryImage, GemGroup, Project, SocialMediaProfile };
